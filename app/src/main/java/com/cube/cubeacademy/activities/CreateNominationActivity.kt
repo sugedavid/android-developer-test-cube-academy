@@ -1,5 +1,6 @@
 package com.cube.cubeacademy.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cube.cubeacademy.databinding.ActivityCreateNominationBinding
@@ -29,5 +30,20 @@ class CreateNominationActivity : AppCompatActivity() {
 		 * 		 Add the logic for the views and at the end, add the logic to create the new nomination using the api
 		 * 		 The nominees drop down list items should come from the api (By fetching the nominee list)
 		 */
+
+		// submit btn
+		binding.submitButton.setOnClickListener {
+			// navigate to NominationSubmittedActivity
+			val intent = Intent(this, NominationSubmittedActivity::class.java)
+			startActivity(intent)
+		}
+
+		// back btn
+		binding.backButton.setOnClickListener {
+			// navigate to MainActivity
+			val intent = Intent(this, MainActivity::class.java)
+			startActivity(intent)
+			finish()
+		}
 	}
 }
