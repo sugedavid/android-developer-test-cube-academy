@@ -72,4 +72,41 @@
 		<item name="android:elevation">6dp</item>
 		<item name="elevation">6dp</item>
 	</style>
+
+	<style name="spinner_outline">
+		<item name="android:background">@drawable/bg_spinner_outline</item>
+		<item name="android:fontFamily">@font/poppins_bold</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:lineHeight">24sp</item>
+		<item name="android:letterSpacing">0.02</item>
+		<item name="android:paddingHorizontal">12dp</item>
+		<item name="android:paddingVertical">12dp</item>
+	</style>
+
+	<style name="edit_text_outline">
+		<item name="android:background">@drawable/bg_small_outline_black</item>
+		<item name="android:fontFamily">@font/anonymous_pro_regular</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:lineHeight">24sp</item>
+		<item name="android:letterSpacing">0.02</item>
+		<item name="android:paddingBottom">204dp</item>
+		<item name="android:paddingTop">12dp</item>
+		<item name="android:paddingHorizontal">12dp</item>
+	</style>
+
+	<style name="radio_unselected" >
+		<item name="android:background">@drawable/bg_radio_inactive_button</item>
+		<item name="android:fontFamily">@font/poppins_bold</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:lineHeight">24sp</item>
+		<item name="android:letterSpacing">0.02</item>
+		<item name="android:paddingVertical">12dp</item>
+		<item name="android:paddingHorizontal">12dp</item>
+		<item name="android:layout_marginBottom">12dp</item>
+		<item name="android:layout_marginHorizontal">6dp</item>
+		<item name="android:drawablePadding">12dp</item>
+		<item name="android:button">@null</item>
+		<item name="android:drawableStart">@drawable/radio_inactive</item>
+	</style>
+
 </resources>
