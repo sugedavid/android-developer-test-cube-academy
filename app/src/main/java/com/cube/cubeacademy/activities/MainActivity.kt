@@ -1,5 +1,6 @@
 package com.cube.cubeacademy.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cube.cubeacademy.databinding.ActivityMainBinding
@@ -29,5 +30,11 @@ class MainActivity : AppCompatActivity() {
 		 * 		 You need to fetch the list of user's nominations from the api and put the data in the recycler view
 		 * 		 And also add action to the "Create new nomination" button to go to the CreateNominationActivity
 		 */
+		// create btn
+		binding.createButton.setOnClickListener {
+			// navigate to CreateNominationActivity
+			val intent = Intent(this, CreateNominationActivity::class.java)
+			startActivity(intent)
+		}
 	}
 }
