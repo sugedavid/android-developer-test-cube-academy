@@ -64,6 +64,39 @@
 					android:textColor="@color/black" />
 
 				<!-- TODO: Add the drop down selector of nominees -->
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="8dp"
+					android:orientation="horizontal">
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="34dp"
+						android:layout_marginEnd="4dp"
+						android:text="@string/asterisk"
+						style="@style/bold_headline_smallest"
+						android:lineSpacingExtra="0sp"
+						android:gravity="top"
+						android:textColor="@color/pink"/>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="34dp"
+						android:text="@string/cube_s_name"
+						style="@style/bold_headline_smallest"
+						android:lineSpacingExtra="0sp"
+						android:gravity="top"
+						android:textColor="@color/black"/>
+
+				</LinearLayout>
+
+
+				<Spinner
+					android:id="@+id/name_spinner"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					style="@style/spinner_outline"/>
 
 				<View
 					android:layout_width="match_parent"
@@ -88,6 +121,38 @@
 					android:textColor="@color/black" />
 
 				<!-- TODO: Add the Edit text for the reason -->
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="8dp"
+					android:orientation="horizontal">
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="34dp"
+						android:layout_marginEnd="4dp"
+						android:text="@string/asterisk"
+						style="@style/bold_headline_smallest"
+						android:lineSpacingExtra="0sp"
+						android:gravity="top"
+						android:textColor="@color/pink"/>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="34dp"
+						android:text="@string/reasoning_label"
+						style="@style/bold_headline_smallest"
+						android:lineSpacingExtra="0sp"
+						android:gravity="top"
+						android:textColor="@color/black"/>
+				</LinearLayout>
+
+				<EditText
+					android:id="@+id/reasoning_edit_text"
+					style="@style/edit_text_outline"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:inputType="text|textCapSentences|textMultiLine" />
 
 				<View
 					android:layout_width="match_parent"
@@ -112,6 +177,54 @@
 					android:textColor="@color/black" />
 
 				<!-- TODO: Add the Radio button for the feedback -->
+				<RadioGroup
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:layout_marginTop="40dp">
+
+					<RadioButton
+						android:id="@+id/radio_very_unfair"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layoutDirection="rtl"
+						android:text="@string/very_unfair"
+						android:drawableEnd="@drawable/very_unfair"
+						style="@style/radio_unselected"
+						/>
+					<RadioButton
+						android:id="@+id/radio_unfair"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layoutDirection="rtl"
+						android:text="@string/unfair"
+						android:drawableEnd="@drawable/unfair"
+						style="@style/radio_unselected"/>
+					<RadioButton
+						android:id="@+id/radio_not_sure"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layoutDirection="rtl"
+						android:text="@string/not_sure"
+						android:drawableEnd="@drawable/not_sure"
+						style="@style/radio_unselected" />
+					<RadioButton
+						android:id="@+id/radio_fair"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layoutDirection="rtl"
+						android:text="@string/fair"
+						android:drawableEnd="@drawable/fair"
+						style="@style/radio_unselected"/>
+					<RadioButton
+						android:id="@+id/radio_very_fair"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layoutDirection="rtl"
+						android:drawableEnd="@drawable/very_unfair"
+						android:text="@string/very_fair"
+						style="@style/radio_unselected"/>
+				</RadioGroup>
 			</LinearLayout>
 
 		</LinearLayout>

@@ -6,13 +6,22 @@
 	<string name="create_a_nomination">Create a nomination</string>
 	<string name="submit_nomination">Submit Nomination</string>
 	<string name="back">Back</string>
-	<string name="id_like_to_nominate">I’d like to nominate...</string>
+	<string name="id_like_to_nominate">I’d like to nominate…</string>
 	<string name="id_like_to_nominate_subtitle">Please select a cube who you feel has done something honourable this month or just all round has a great work ethic.</string>
-	<string name="reason_title">I’d like to nominate THIS CUBE BECAUSE...</string>
+	<string name="reason_title">I’d like to nominate THIS CUBE BECAUSE…</string>
 	<string name="reason_subtitle">Please let us know why you think this cube deserves the ‘cube of the month’ title 🏆⭐</string>
 	<string name="process_title">IS HOW WE CURRENTLY RUN CUBE OF THE MONTH FAIR?</string>
-	<string name="process_subtitle">As you know, out the nominees chosen, we spin a wheel to pick the cube of the month. What’s your opinion on this method?</string>
+	<string name="process_subtitle">As you know, out of the nominees chosen, we spin a wheel to pick the cube of the month. What’s your opinion on this method?</string>
 	<string name="nomination_submitted">Nomination Submitted</string>
 	<string name="back_to_home">Back to home</string>
 	<string name="nomination_submitted_body">Thank you for taking the time to fill out this form! Why not nominate another cube?</string>
+	<string name="cube_s_name">Cube’s name</string>
+	<string name="asterisk">* </string>
+	<string name="reasoning_label">Reasoning</string>
+    <string name="very_fair">Very Fair</string>
+	<string name="fair">Fair</string>
+	<string name="not_sure">Not sure</string>
+	<string name="unfair">Unfair</string>
+	<string name="very_unfair">Very Unfair</string>
+
 </resources>
