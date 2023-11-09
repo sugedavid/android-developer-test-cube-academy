@@ -1,24 +1,39 @@
 package com.cube.cubeacademy.lib.di
 
 import com.cube.cubeacademy.lib.api.ApiService
+import com.cube.cubeacademy.lib.models.DataWrapper
 import com.cube.cubeacademy.lib.models.Nomination
 import com.cube.cubeacademy.lib.models.Nominee
+import retrofit2.Response
 
 class Repository(val api: ApiService) {
 	// TODO: Add additional code if you need it
 
-	suspend fun getAllNominations(): List<Nomination> {
-		// TODO: Write the code to fetch the list nominations from the api
-		return emptyList()
+	suspend fun getAllNominations(): Response<DataWrapper<List<Nomination>>> {
+		return  try {
+			api.getAllNominations()
+	} catch (e: Exception) {
+		// handle exceptions
+		Response.error(500, okhttp3.ResponseBody.create(null, "An error occurred: ${e.message}"))
+	}
 	}
 
-	suspend fun getAllNominees(): List<Nominee> {
-		// TODO: Write the code to fetch list of all nominees from the api
-		return api.getAllNominees().data
+	suspend fun getAllNominees(): Response<DataWrapper<List<Nominee>>> {
+		return  try {
+			api.getAllNominees()
+		} catch (e: Exception) {
+			// handle exceptions
+			Response.error(500, okhttp3.ResponseBody.create(null, "An error occurred: ${e.message}"))
+		}
 	}
 
-	suspend fun createNomination(nomineeId: String, reason: String, process: String): Nomination? {
-		// TODO: Write the code to create a new nomination using the api
-		return api.createNomination(nomineeId, reason, process).data
+	suspend fun createNomination(nomineeId: String, reason: String, process: String):
+			Response<DataWrapper<Nomination>>? {
+		return try {
+			api.createNomination(nomineeId, reason, process)
+		} catch (e: Exception) {
+			// handle exceptions
+			Response.error(500, okhttp3.ResponseBody.create(null, "An error occurred: ${e.message}"))
+		}
 	}
 }

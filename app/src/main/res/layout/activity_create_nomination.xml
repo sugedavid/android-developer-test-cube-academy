@@ -93,7 +93,7 @@
 
 
 				<Spinner
-					android:id="@+id/name_spinner"
+					android:id="@+id/nameSpinner"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					style="@style/spinner_outline"/>
@@ -108,7 +108,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					style="@style/bold_headline_small"
-					android:layout_marginTop="30dp"
+					android:layout_marginTop="40dp"
 					android:text="@string/reason_title"
 					android:textColor="@color/black" />
 
@@ -148,11 +148,12 @@
 				</LinearLayout>
 
 				<EditText
-					android:id="@+id/reasoning_edit_text"
+					android:id="@+id/reasoningEditText"
 					style="@style/edit_text_outline"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:inputType="text|textCapSentences|textMultiLine" />
+					android:inputType="text|textCapSentences|textMultiLine"
+					android:maxLength="280"/>
 
 				<View
 					android:layout_width="match_parent"
@@ -164,7 +165,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					style="@style/bold_headline_small"
-					android:layout_marginTop="30dp"
+					android:layout_marginTop="40dp"
 					android:text="@string/process_title"
 					android:textColor="@color/black" />
 
@@ -184,7 +185,7 @@
 					android:layout_marginTop="40dp">
 
 					<RadioButton
-						android:id="@+id/radio_very_unfair"
+						android:id="@+id/veryUnfairRadio"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layoutDirection="rtl"
@@ -193,7 +194,7 @@
 						style="@style/radio_unselected"
 						/>
 					<RadioButton
-						android:id="@+id/radio_unfair"
+						android:id="@+id/unfairRadio"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layoutDirection="rtl"
@@ -201,7 +202,7 @@
 						android:drawableEnd="@drawable/unfair"
 						style="@style/radio_unselected"/>
 					<RadioButton
-						android:id="@+id/radio_not_sure"
+						android:id="@+id/notSureRadio"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layoutDirection="rtl"
@@ -209,7 +210,7 @@
 						android:drawableEnd="@drawable/not_sure"
 						style="@style/radio_unselected" />
 					<RadioButton
-						android:id="@+id/radio_fair"
+						android:id="@+id/fairRadio"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layoutDirection="rtl"
@@ -217,7 +218,7 @@
 						android:drawableEnd="@drawable/fair"
 						style="@style/radio_unselected"/>
 					<RadioButton
-						android:id="@+id/radio_very_fair"
+						android:id="@+id/veryFairRadio"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layoutDirection="rtl"
