@@ -3,6 +3,7 @@ package com.cube.cubeacademy.activities
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
@@ -17,6 +18,7 @@ import com.cube.cubeacademy.lib.adapters.CustomSpinnerAdapter
 import com.cube.cubeacademy.lib.di.Repository
 import com.cube.cubeacademy.lib.models.Nominee
 import com.cube.cubeacademy.lib.utils.Process
+import com.cube.cubeacademy.lib.utils.displayErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,9 +54,14 @@ class CreateNominationActivity : AppCompatActivity() {
 
             // fetch nominees
             lifecycleScope.launch {
-                nominees.addAll(repository.getAllNominees())
+                val nomineesResponse = repository.getAllNominees()
+                if (nomineesResponse.isSuccessful) {
+                    nomineesResponse.body()?.let { nominees.addAll(it.data) }
+                }else displayErrorToast(
+                    this@CreateNominationActivity, "fetching nominees"
+                )
 
-                // cube's name spinner
+                // cube's name Spinner
                 val items = mutableListOf(Nominee("", "Select", "Option"))
                 items.addAll(nominees)
 
@@ -88,57 +95,61 @@ class CreateNominationActivity : AppCompatActivity() {
                 toggleSubmitBtn(submitButton)
             }
 
+            // radio Drawables
+            val veryUnfairDrawable =
+                ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.very_unfair)
+            val unfairDrawable =
+                ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.unfair)
+            val notSureDrawable =
+                ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.not_sure)
+            val fairDrawable =
+                ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.fair)
+            val veryFairDrawable =
+                ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.very_fair)
 
-            // radio drawables
-            val veryUnfairDrawable = ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.very_unfair)
-            val unfairDrawable = ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.unfair)
-            val notSureDrawable = ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.not_sure)
-            val fairDrawable = ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.fair)
-            val veryFairDrawable = ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.very_fair)
 
-
-            // radioVeryUnfair
-            radioVeryUnfair.setOnCheckedChangeListener { _, isChecked ->
+            // veryUnfair Radio
+            veryUnfairRadio.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) process = Process.VERY_UNFAIR.name.lowercase()
-                toggleRadioState(radioVeryUnfair, isChecked, veryUnfairDrawable)
+                toggleRadioState(veryUnfairRadio, isChecked, veryUnfairDrawable)
                 toggleSubmitBtn(submitButton)
             }
 
-            // radioUnfair
-            radioUnfair.setOnCheckedChangeListener { _, isChecked ->
+            // unfair Radio
+            unfairRadio.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) process = Process.UNFAIR.name.lowercase()
-                toggleRadioState(radioUnfair, isChecked, unfairDrawable)
+                toggleRadioState(unfairRadio, isChecked, unfairDrawable)
                 toggleSubmitBtn(submitButton)
             }
 
-            // radioNotSure
-            radioNotSure.setOnCheckedChangeListener { _, isChecked ->
+            // notSure Radio
+            notSureRadio.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) process = Process.NOT_SURE.name.lowercase()
-                toggleRadioState(radioNotSure, isChecked, notSureDrawable)
+                toggleRadioState(notSureRadio, isChecked, notSureDrawable)
                 toggleSubmitBtn(submitButton)
             }
 
-            // radioFair
-            radioFair.setOnCheckedChangeListener { _, isChecked ->
+            // fair Radio
+            fairRadio.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) process = Process.FAIR.name.lowercase()
-                toggleRadioState(radioFair, isChecked, fairDrawable)
+                toggleRadioState(fairRadio, isChecked, fairDrawable)
                 toggleSubmitBtn(submitButton)
             }
 
-            // radioVeryFair
-            radioVeryFair.setOnCheckedChangeListener { _, isChecked ->
+            // veryFair Radio
+            veryFairRadio.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) process = Process.VERY_FAIR.name
-                toggleRadioState(radioVeryFair, isChecked, veryFairDrawable)
+                toggleRadioState(veryFairRadio, isChecked, veryFairDrawable)
                 toggleSubmitBtn(submitButton)
             }
 
-            // submit btn
+            // submit Button
             submitButton.setOnClickListener {
                 // create nomination
                 lifecycleScope.launch {
-                    val nomination = repository.createNomination(nomineeId, reason, process)
-                    if (nomination != null) {
-                        // navigate to NominationSubmittedActivity
+                    val nominationResponse = repository.createNomination(nomineeId, reason, process)
+                    // navigate to NominationSubmittedActivity if successful, else show error message
+                    if (nominationResponse != null && nominationResponse.isSuccessful) {
                         val intent =
                             Intent(
                                 this@CreateNominationActivity,
@@ -146,41 +157,53 @@ class CreateNominationActivity : AppCompatActivity() {
                             )
                         startActivity(intent)
                         finish()
-                    }
+                    } else displayErrorToast(
+                        this@CreateNominationActivity, "submitting your nomination"
+                    )
+
                 }
             }
 
-            // back btn
+            // back Button
             backButton.setOnClickListener {
                 // navigate to MainActivity
-                val intent = Intent(this@CreateNominationActivity, MainActivity::class.java)
-                startActivity(intent)
                 finish()
             }
         }
 
     }
 
-    // changes the submit button enabled state
+    // updates the submit Button enabled state
     private fun toggleSubmitBtn(submitButton: Button) {
         submitButton.isEnabled =
             nomineeId.isNotEmpty() && reason.isNotEmpty() && process.isNotEmpty()
     }
 
-    // changes the radio button style
-    private fun toggleRadioState(radio: RadioButton, isChecked: Boolean, startDrawable: Drawable?){
-        val radioActiveDrawable = ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.radio_active)
-        val radioInActiveDrawable = ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.radio_inactive)
+    // updates the RadioButton style
+    private fun toggleRadioState(radio: RadioButton, isChecked: Boolean, startDrawable: Drawable?) {
+        val radioActiveDrawable =
+            ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.radio_active)
+        val radioInActiveDrawable =
+            ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.radio_inactive)
 
         if (isChecked) {
             radio.elevation = 10F
             radio.setBackgroundResource(R.drawable.bg_radio_active_button)
-            radio.setCompoundDrawablesRelativeWithIntrinsicBounds(radioActiveDrawable, null, startDrawable, null)
-        }
-        else {
+            radio.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                radioActiveDrawable,
+                null,
+                startDrawable,
+                null
+            )
+        } else {
             radio.elevation = 0F
             radio.setBackgroundResource(R.drawable.bg_radio_inactive_button)
-            radio.setCompoundDrawablesRelativeWithIntrinsicBounds(radioInActiveDrawable, null, startDrawable, null)
+            radio.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                radioInActiveDrawable,
+                null,
+                startDrawable,
+                null
+            )
         }
     }
 }
