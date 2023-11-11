@@ -7,7 +7,6 @@ import com.cube.cubeacademy.lib.models.Nominee
 import retrofit2.Response
 
 class Repository(val api: ApiService) {
-	// TODO: Add additional code if you need it
 
 	suspend fun getAllNominations(): Response<DataWrapper<List<Nomination>>> {
 		return  try {

@@ -7,25 +7,32 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.RadioButton
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.lifecycleScope
 import com.cube.cubeacademy.R
 import com.cube.cubeacademy.databinding.ActivityCreateNominationBinding
-import com.cube.cubeacademy.lib.adapters.CustomSpinnerAdapter
+import com.cube.cubeacademy.fragments.BackModalClickListener
+import com.cube.cubeacademy.fragments.BackModalFragment
+import com.cube.cubeacademy.lib.adapters.SpinnerAdapter
 import com.cube.cubeacademy.lib.di.Repository
 import com.cube.cubeacademy.lib.models.Nominee
 import com.cube.cubeacademy.lib.utils.Process
+import com.cube.cubeacademy.lib.utils.colorSubstring
 import com.cube.cubeacademy.lib.utils.displayErrorToast
+import com.cube.cubeacademy.lib.view_models.CreateNominationViewModel
+import com.cube.cubeacademy.lib.view_models.NominationViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CreateNominationActivity : AppCompatActivity() {
+class CreateNominationActivity : AppCompatActivity(), BackModalClickListener {
     private lateinit var binding: ActivityCreateNominationBinding
-    private var nominees = mutableListOf<Nominee>()
+    private val backModalFragment = BackModalFragment()
+    private val nominationViewModel: NominationViewModel by viewModels()
+    private val createNominationViewModel: CreateNominationViewModel by viewModels()
     private var nomineeId = ""
     private var reason = ""
     private var process = ""
@@ -43,49 +50,57 @@ class CreateNominationActivity : AppCompatActivity() {
     }
 
     private fun populateUI() {
-        /**
-         * TODO: Populate the form after having added the views to the xml file (Look for TODO comments in the xml file)
-         * 		 Add the logic for the views and at the end, add the logic to create the new nomination using the api
-         * 		 The nominees drop down list items should come from the api (By fetching the nominee list)
-         */
-
         binding.apply {
 
+            // apply color to substring
+            processTitleTextView.colorSubstring(getString(R.string.cube_of_the_month))
+            nomineeLabelTextView.colorSubstring(getString(R.string.asterisk))
+            reasoningLabelTextView.colorSubstring(getString(R.string.asterisk))
+
             // fetch nominees
-            lifecycleScope.launch {
-                val nomineesResponse = repository.getAllNominees()
-                if (nomineesResponse.isSuccessful) {
-                    nomineesResponse.body()?.let { nominees.addAll(it.data) }
-                }else displayErrorToast(
-                    this@CreateNominationActivity, "fetching nominees"
-                )
+            nominationViewModel.fetchNominees()
 
-                // cube's name Spinner
-                val items = mutableListOf(Nominee("", "Select", "Option"))
-                items.addAll(nominees)
+            // observe nominees
+            nominationViewModel.nominees.observe(this@CreateNominationActivity) { nominees ->
+                if (nominees.isNotEmpty()) {
+                    // nominee Spinner
+                    val items = mutableListOf(
+                        Nominee(
+                            "", getString(R.string.select),
+                            getString(R.string.option)
+                        )
+                    )
+                    items.addAll(nominees)
 
-                val adapter = CustomSpinnerAdapter(this@CreateNominationActivity, items)
-                nameSpinner.adapter = adapter
-
-                nameSpinner.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>?,
-                            view: View?,
-                            position: Int,
-                            id: Long
-                        ) {
-                            // assign nomineeId if hint is not selected
-                            nomineeId = if (position == 0) {
-                                ""
-                            } else {
-                                items[position].nomineeId
+                    val adapter = SpinnerAdapter(this@CreateNominationActivity, items)
+                    nameSpinner.adapter = adapter
+                    nameSpinner.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long
+                            ) {
+                                // assign nomineeId if hint is not selected
+                                nomineeId = if (position == 0) {
+                                    ""
+                                } else {
+                                    items[position].nomineeId
+                                }
+                                toggleSubmitBtn(submitButton)
                             }
-                            toggleSubmitBtn(submitButton)
-                        }
 
-                        override fun onNothingSelected(parent: AdapterView<*>?) {}
-                    }
+                            override fun onNothingSelected(parent: AdapterView<*>?) {}
+                        }
+                }
+            }
+
+            // observe nominees fetch status
+            nominationViewModel.nomineesSuccessful.observe(this@CreateNominationActivity) { isSuccessful ->
+                if (!isSuccessful) displayErrorToast(
+                    this@CreateNominationActivity, getString(R.string.fetching_nominees)
+                )
             }
 
             // reasoning EditText
@@ -105,7 +120,6 @@ class CreateNominationActivity : AppCompatActivity() {
                 ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.fair)
             val veryFairDrawable =
                 ContextCompat.getDrawable(this@CreateNominationActivity, R.drawable.very_fair)
-
 
             // veryUnfair Radio
             veryUnfairRadio.setOnCheckedChangeListener { _, isChecked ->
@@ -145,29 +159,50 @@ class CreateNominationActivity : AppCompatActivity() {
             // submit Button
             submitButton.setOnClickListener {
                 // create nomination
-                lifecycleScope.launch {
-                    val nominationResponse = repository.createNomination(nomineeId, reason, process)
-                    // navigate to NominationSubmittedActivity if successful, else show error message
-                    if (nominationResponse != null && nominationResponse.isSuccessful) {
-                        val intent =
-                            Intent(
-                                this@CreateNominationActivity,
-                                NominationSubmittedActivity::class.java
-                            )
-                        startActivity(intent)
-                        finish()
-                    } else displayErrorToast(
-                        this@CreateNominationActivity, "submitting your nomination"
-                    )
+                createNominationViewModel.createNomination(nomineeId, reason, process)
+            }
 
+            // observe create nomination status
+            createNominationViewModel.createNominationsSuccessful.observe(this@CreateNominationActivity) { isSuccessful ->
+                // navigate to NominationSubmittedActivity if successful, else show error message
+                if (isSuccessful) {
+                    val intent =
+                        Intent(
+                            this@CreateNominationActivity,
+                            NominationSubmittedActivity::class.java
+                        )
+                    startActivity(intent)
+                    finish()
+                } else displayErrorToast(
+                    this@CreateNominationActivity,
+                    getString(R.string.submitting_your_nomination)
+                )
+            }
+
+            // observe loading status
+            createNominationViewModel.isLoading.observe(this@CreateNominationActivity) { isLoading ->
+                // navigate to NominationSubmittedActivity if successful, else show error message
+                if (isLoading) {
+                    loadingIndicator.visibility = View.VISIBLE
+                    submitButton.text = ""
+                } else {
+                    loadingIndicator.visibility = View.INVISIBLE
+                    submitButton.text = getString(R.string.submit_nomination)
                 }
             }
 
             // back Button
             backButton.setOnClickListener {
-                // navigate to MainActivity
-                finish()
+                handleBackNavigation()
             }
+
+            onBackPressedDispatcher.addCallback(
+                this@CreateNominationActivity,
+                object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        handleBackNavigation()
+                    }
+                })
         }
 
     }
@@ -204,5 +239,23 @@ class CreateNominationActivity : AppCompatActivity() {
                 null
             )
         }
+    }
+
+    // handle back button navigation
+    fun handleBackNavigation() {
+        // navigate to MainActivity if user has filled the form, else show modal
+        if (nomineeId.isNotEmpty() || reason.isNotEmpty() || process.isNotEmpty()) {
+            backModalFragment.setClickListener(this@CreateNominationActivity)
+            backModalFragment.show(supportFragmentManager, backModalFragment.tag)
+        } else
+            finish()
+    }
+
+    override fun onLeavePageButtonClick() {
+        finish()
+    }
+
+    override fun onCancelButtonClick() {
+        backModalFragment.dismiss()
     }
 }
