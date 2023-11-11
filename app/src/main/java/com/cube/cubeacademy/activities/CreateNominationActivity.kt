@@ -3,7 +3,6 @@ package com.cube.cubeacademy.activities
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
@@ -89,7 +88,7 @@ class CreateNominationActivity : AppCompatActivity() {
                     }
             }
 
-            // reasoning
+            // reasoning EditText
             reasoningEditText.addTextChangedListener {
                 reason = it.toString()
                 toggleSubmitBtn(submitButton)

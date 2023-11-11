@@ -63,7 +63,6 @@
 					android:text="@string/id_like_to_nominate_subtitle"
 					android:textColor="@color/black" />
 
-				<!-- TODO: Add the drop down selector of nominees -->
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -120,7 +119,6 @@
 					android:text="@string/reason_subtitle"
 					android:textColor="@color/black" />
 
-				<!-- TODO: Add the Edit text for the reason -->
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -177,7 +175,6 @@
 					android:text="@string/process_subtitle"
 					android:textColor="@color/black" />
 
-				<!-- TODO: Add the Radio button for the feedback -->
 				<RadioGroup
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
