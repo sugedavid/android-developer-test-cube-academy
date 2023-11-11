@@ -1,264 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	tools:context=".activities.CreateNominationActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.CreateNominationActivity">
 
-	<androidx.appcompat.widget.Toolbar
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/black"
-		android:paddingBottom="10dp"
-		android:paddingTop="30dp">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:paddingTop="30dp"
+        android:paddingBottom="10dp">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			style="@style/bold_headline_small"
-			android:layout_gravity="center_horizontal"
-			android:text="@string/create_a_nomination"
-			android:textColor="@color/white" />
-	</androidx.appcompat.widget.Toolbar>
+        <TextView
+            style="@style/bold_headline_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/create_a_nomination"
+            android:textColor="@color/white" />
+    </androidx.appcompat.widget.Toolbar>
 
-	<androidx.core.widget.NestedScrollView
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="180dp"
-				android:importantForAccessibility="no"
-				android:scaleType="centerCrop"
-				android:src="@drawable/artwork_create" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:src="@drawable/artwork_create" />
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:paddingBottom="50dp"
-				android:paddingHorizontal="16dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="50dp">
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/bold_headline_small"
-					android:layout_marginTop="30dp"
-					android:text="@string/id_like_to_nominate"
-					android:textColor="@color/black" />
+                <TextView
+                    style="@style/bold_headline_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/id_like_to_nominate"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/body"
-					android:layout_marginTop="8dp"
-					android:text="@string/id_like_to_nominate_subtitle"
-					android:textColor="@color/black" />
+                <TextView
+                    style="@style/body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/id_like_to_nominate_subtitle"
+                    android:textColor="@color/black" />
 
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="8dp"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="34dp"
-						android:layout_marginEnd="4dp"
-						android:text="@string/asterisk"
-						style="@style/bold_headline_smallest"
-						android:lineSpacingExtra="0sp"
-						android:gravity="top"
-						android:textColor="@color/pink"/>
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="34dp"
-						android:text="@string/cube_s_name"
-						style="@style/bold_headline_smallest"
-						android:lineSpacingExtra="0sp"
-						android:gravity="top"
-						android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/nomineeLabelTextView"
+                    style="@style/bold_headline_smallest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:gravity="top"
+                    android:lineSpacingExtra="0sp"
+                    android:text="@string/nominee_label"
+                    android:textColor="@color/black" />
 
-				</LinearLayout>
+                <Spinner
+                    android:id="@+id/nameSpinner"
+                    style="@style/spinner_outline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:dropDownVerticalOffset="26dp"
+                    android:overlapAnchor="false"
+                    android:popupBackground="@color/grey_light"
+                    android:textColor="@color/black" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@color/grey_mild" />
 
-				<Spinner
-					android:id="@+id/nameSpinner"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					style="@style/spinner_outline"/>
+                <TextView
+                    style="@style/bold_headline_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/reason_title"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
 
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:background="@color/grey_mild"
-					android:layout_marginTop="40dp" />
+                <TextView
+                    style="@style/body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/reason_subtitle"
+                    android:textColor="@color/black" />
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/bold_headline_small"
-					android:layout_marginTop="40dp"
-					android:text="@string/reason_title"
-					android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/reasoningLabelTextView"
+                    style="@style/bold_headline_smallest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:gravity="top"
+                    android:labelFor="@+id/reasoningEditText"
+                    android:lineSpacingExtra="0sp"
+                    android:text="@string/reasoning_label"
+                    android:textColor="@color/black" />
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/body"
-					android:layout_marginTop="8dp"
-					android:text="@string/reason_subtitle"
-					android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/reasoningEditText"
+                    style="@style/edit_text_outline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints="text"
+                    android:inputType="text|textCapSentences|textMultiLine"
+                    android:maxLength="280" />
 
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="8dp"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="34dp"
-						android:layout_marginEnd="4dp"
-						android:text="@string/asterisk"
-						style="@style/bold_headline_smallest"
-						android:lineSpacingExtra="0sp"
-						android:gravity="top"
-						android:textColor="@color/pink"/>
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="34dp"
-						android:text="@string/reasoning_label"
-						style="@style/bold_headline_smallest"
-						android:lineSpacingExtra="0sp"
-						android:gravity="top"
-						android:textColor="@color/black"/>
-				</LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@color/grey_mild" />
 
-				<EditText
-					android:id="@+id/reasoningEditText"
-					style="@style/edit_text_outline"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:inputType="text|textCapSentences|textMultiLine"
-					android:maxLength="280"/>
+                <TextView
+                    android:id="@+id/processTitleTextView"
+                    style="@style/bold_headline_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/process_title"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
 
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:background="@color/grey_mild"
-					android:layout_marginTop="40dp" />
+                <TextView
+                    style="@style/body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/process_subtitle"
+                    android:textColor="@color/black" />
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/bold_headline_small"
-					android:layout_marginTop="40dp"
-					android:text="@string/process_title"
-					android:textColor="@color/black" />
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical">
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/body"
-					android:layout_marginTop="8dp"
-					android:text="@string/process_subtitle"
-					android:textColor="@color/black" />
+                    <RadioButton
+                        android:id="@+id/veryUnfairRadio"
+                        style="@style/radio_unselected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/very_unfair"
+                        android:layoutDirection="rtl"
+                        android:text="@string/very_unfair" />
 
-				<RadioGroup
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical"
-					android:layout_marginTop="40dp">
+                    <RadioButton
+                        android:id="@+id/unfairRadio"
+                        style="@style/radio_unselected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/unfair"
+                        android:layoutDirection="rtl"
+                        android:text="@string/unfair" />
 
-					<RadioButton
-						android:id="@+id/veryUnfairRadio"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layoutDirection="rtl"
-						android:text="@string/very_unfair"
-						android:drawableEnd="@drawable/very_unfair"
-						style="@style/radio_unselected"
-						/>
-					<RadioButton
-						android:id="@+id/unfairRadio"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layoutDirection="rtl"
-						android:text="@string/unfair"
-						android:drawableEnd="@drawable/unfair"
-						style="@style/radio_unselected"/>
-					<RadioButton
-						android:id="@+id/notSureRadio"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layoutDirection="rtl"
-						android:text="@string/not_sure"
-						android:drawableEnd="@drawable/not_sure"
-						style="@style/radio_unselected" />
-					<RadioButton
-						android:id="@+id/fairRadio"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layoutDirection="rtl"
-						android:text="@string/fair"
-						android:drawableEnd="@drawable/fair"
-						style="@style/radio_unselected"/>
-					<RadioButton
-						android:id="@+id/veryFairRadio"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layoutDirection="rtl"
-						android:drawableEnd="@drawable/very_unfair"
-						android:text="@string/very_fair"
-						style="@style/radio_unselected"/>
-				</RadioGroup>
-			</LinearLayout>
+                    <RadioButton
+                        android:id="@+id/notSureRadio"
+                        style="@style/radio_unselected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/not_sure"
+                        android:layoutDirection="rtl"
+                        android:text="@string/not_sure" />
 
-		</LinearLayout>
+                    <RadioButton
+                        android:id="@+id/fairRadio"
+                        style="@style/radio_unselected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/fair"
+                        android:layoutDirection="rtl"
+                        android:text="@string/fair" />
 
-	</androidx.core.widget.NestedScrollView>
+                    <RadioButton
+                        android:id="@+id/veryFairRadio"
+                        style="@style/radio_unselected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/very_fair"
+                        android:layoutDirection="rtl"
+                        android:text="@string/very_fair" />
+                </RadioGroup>
+            </LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/white"
-		android:clipChildren="false"
-		android:clipToPadding="false"
-		android:elevation="10dp"
-		android:gravity="center_vertical"
-		android:orientation="horizontal"
-		android:paddingHorizontal="24dp"
-		android:paddingVertical="20dp">
+        </LinearLayout>
 
-		<androidx.appcompat.widget.AppCompatButton
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:id="@+id/back_button"
-			style="@style/button_outline"
-			android:layout_marginEnd="7dp"
-			android:layout_weight="1"
-			android:text="@string/back" />
+    </androidx.core.widget.NestedScrollView>
 
-		<androidx.appcompat.widget.AppCompatButton
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:id="@+id/submit_button"
-			style="@style/button"
-			android:enabled="false"
-			android:layout_marginStart="7dp"
-			android:layout_weight="2"
-			android:text="@string/submit_nomination" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="20dp">
 
-	</LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/back_button"
+            style="@style/button_outline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:layout_weight="1"
+            android:text="@string/back" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/submit_button"
+                style="@style/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:enabled="false"
+                android:text="@string/submit_nomination" />
+
+            <ProgressBar
+                android:id="@+id/loadingIndicator"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/white"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+    </LinearLayout>
 </LinearLayout>

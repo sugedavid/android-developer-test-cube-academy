@@ -7,6 +7,7 @@ on:
     branches: [main]
 
 jobs:
+  # Job 1: Run tests and generate report
   test:
     runs-on: macos-latest
     steps:
@@ -26,26 +27,7 @@ jobs:
           api-level: 29
           script: ./gradlew connectedCheck
 
-      # Generate report
-      - name: Generate Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: report
-          path: app/build/reports/coverage/androidTest/
-
-      # Download report
-      - name: Download Test Reports Folder
-        uses: actions/download-artifact@v3
-        with:
-          name: report
-          path: app/build/reports/coverage/androidTest/
-
-      # Upload coverage report to Codecov
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
+  # Job 2: Generate apk
   apk:
     # Generate apk file
     name: Generate apk

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cube.cubeacademy.R
 import com.cube.cubeacademy.lib.models.Nominee
 
-class CustomSpinnerAdapter(context: AppCompatActivity, nominees: List<Nominee>) :
+class SpinnerAdapter(context: AppCompatActivity, nominees: List<Nominee>) :
     ArrayAdapter<Nominee>(context, 0, nominees) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
